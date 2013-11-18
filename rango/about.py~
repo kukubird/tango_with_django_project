@@ -1,0 +1,4 @@
+from django.http import HttpResponse #create your views here
+
+def index(request):
+    return HttpResponse("Rango says:Here is the about page.")                 
