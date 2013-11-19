@@ -37,7 +37,7 @@ def index(request):
     context_dict['cat_list'] = cat_list
 
     category_list = Category.objects.all()
-    context_dict = {'categories': category_list}
+    context_dict ['category_list']= category_list
 
     for category in category_list:
         category.url = encode_url(category.name)
@@ -290,14 +290,7 @@ def search(request):
             result_list = run_query(query)
 
     return render_to_response('rango/search.html', {'result_list': result_list}, context)
-# function foe=r get_category_list, that returns the list of categories
-def get_category_list():
-    cat_list = Category.objects.all()
 
-    for cat in cat_list:
-        cat.url = encode_url(cat.name)
-
-    return cat_list
 #View for the Profile function
 @login_required
 def profile(request):
@@ -351,7 +344,7 @@ def like_category(request):
 
     return HttpResponse(likes)
 
-#get_category_list function
+# function for get_category_list, that returns the list of categories
 def get_category_list(max_results=0, starts_with=''):
         cat_list = []
         if starts_with:
@@ -374,11 +367,11 @@ def suggest_category(request):
         cat_list = []
         starts_with = ''
         if request.method == 'GET':
-            starts_with = request.GET['suggestion']
+                starts_with = request.GET['suggestion']
         else:
-            starts_with = request.POST['suggestion']
+                starts_with = request.POST['suggestion']
 
-        cat_list = get_category_list(8, starts_with)
+                cat_list = get_category_list(8, starts_with)
 
         return render_to_response('rango/category_list.html', {'cat_list': cat_list }, context) #we are reusing the category_list instead of creating one because as it will be displaying data of the same type (i.e. categories).
 
