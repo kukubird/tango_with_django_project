@@ -30,6 +30,7 @@ def about(request):
     context = RequestContext(request)
     context_dict = {}
     return render_to_response('rango/about.html', context_dict, context)
+# This is the index views    
 def index(request):
     context = RequestContext(request)
     cat_list = get_category_list()
@@ -41,6 +42,9 @@ def index(request):
 
     for category in category_list:
         category.url = encode_url(category.name)
+
+    category_list = Category.objects.order_by('-views')[:5]
+    context_dict['categories'] = category_list
 
     page_list = Page.objects.order_by('-views')[:5]
     context_dict['pages'] = page_list
@@ -71,6 +75,7 @@ def category(request, category_name_url):
         category_name = decode_url(category_name_url)
 
         context_dict = {'cat_list': cat_list, 'category_name': category_name}
+        context_dict['category_name_url']= category_name_url
 
         try:
                 category = Category.objects.get(name=category_name)
@@ -80,6 +85,7 @@ def category(request, category_name_url):
 
                 pages = Page.objects.filter(category=category)
                 context_dict['pages'] = pages
+
         except Category.DoesNotExist:
                 pass
 
