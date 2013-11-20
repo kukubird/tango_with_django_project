@@ -14,7 +14,7 @@ if path not in sys.path:
 os.chdir(path)
 
 # TELL DJANGO WHERE YOUR SETTINGS MODULE IS LOCATED
-os.environ['DJANGO_SETTINGS_MODULE'] = 'tango_with_django_project.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
 # IMPORT THE DJANGO WSGI HANDLER TO TAKE CARE OF REQUESTS
 import django.core.handlers.wsgi
